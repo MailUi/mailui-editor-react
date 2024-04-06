@@ -1,0 +1,29 @@
+{
+  "name": "mailui-editor-react-example",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-app-polyfill": "^1.0.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1"
+  },
+  "alias": {
+    "react": "../node_modules/react",
+    "react-dom": "../node_modules/react-dom/profiling",
+    "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.12.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "parcel": "^2.12.0",
+    "process": "^0.11.10",
+    "typescript": "^3.4.5"
+  }
+}
