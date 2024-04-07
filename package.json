@@ -49,6 +49,7 @@
     }
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@size-limit/preset-small-lib": "^11.1.2",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
