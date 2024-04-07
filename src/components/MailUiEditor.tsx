@@ -10,7 +10,7 @@ import useEditorOptions from "../hooks/useEditorOptions";
 import useEditorInitialization from "../hooks/useEditorInitialization";
 import useEventHandlers from "../hooks/useEventHandlers";
 
-window.__mailui_newEditorId = window.__mailui_newEditorId || 0;
+// window.__mailui_newEditorId = window.__mailui_newEditorId || 0;
 
 const MailUiEditor = React.forwardRef<MailUiEditorRef, MailUiEditorProps>(
     (props, ref) => {
@@ -33,6 +33,11 @@ const MailUiEditor = React.forwardRef<MailUiEditorRef, MailUiEditorProps>(
             setHasLoadedEmbedScript(false);
             scriptLoader(() => setHasLoadedEmbedScript(true), scriptUrl);
         }, [scriptUrl]);
+
+        useEffect(() => {
+            window.__mailui_newEditorId = window.__mailui_newEditorId || 0;
+        }, []);
+
 
         useEditorInitialization(editor, setEditor, options, hasLoadedEmbedScript);
         useEventHandlers(editor, props);
