@@ -6,8 +6,8 @@ const useEditorOptions = (props: MailUiEditorProps, editorId: string) => {
     return useMemo(() => {
         const options: MailUiEditorProps['options'] = {
             ...(props.options || {}),
-            apiKey: props.options.apiKey,
-            apiSecret: props.options.apiSecret,
+            apiKey: props.options?.apiKey,
+            apiSecret: props.options?.apiSecret,
             appearance: props.options?.appearance,
             displayMode: props.options?.displayMode || 'email',
             locale: props.options?.locale,
