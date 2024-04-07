@@ -3,6 +3,7 @@ import MailUiEditor, {MailUiEditorProps, MailUiEditorRef} from "../../src";
 import packageJson from "../package.json";
 import sampleTemplate from "./sampleTemplate.json";
 import {FaDesktop, FaMobile, FaRedoAlt, FaTablet, FaUndoAlt} from "react-icons/fa";
+import * as process from "process";
 
 const classNames = (...args: (string | undefined | null | false | number)[]): string => {
     return args.filter(arg => typeof arg === 'string').join(' ');
@@ -319,8 +320,8 @@ const BasicExample = () => {
                 onReady={onReady}
                 minHeight="calc(100vh - 57px)"
                 options={{
-                    apiKey: "XJzvKH4CD5iPaK6Ov3Ai98AyltCi2rk7",
-                    apiSecret: "XJzvKH4CD5iPaK6Ov3Ai98AyltCi2rk7",
+                    apiKey: process.env.REACT_APP_API_KEY,
+                    apiSecret: process.env.REACT_APP_API_KEY,
 
                     defaultDevice: "desktop",
                     devices: ["desktop", "tablet", "mobile"],
