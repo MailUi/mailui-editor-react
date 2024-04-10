@@ -3,7 +3,6 @@ import MailUiEditor, {MailUiEditorProps, MailUiEditorRef} from "../../src";
 import packageJson from "../package.json";
 import sampleTemplate from "./sampleTemplate.json";
 import {FaDesktop, FaMobile, FaRedoAlt, FaTablet, FaUndoAlt} from "react-icons/fa";
-import * as process from "process";
 
 const classNames = (...args: (string | undefined | null | false | number)[]): string => {
     return args.filter(arg => typeof arg === 'string').join(' ');
@@ -128,7 +127,7 @@ const BasicExample = () => {
     };
 
     const onLoad: MailUiEditorProps['onLoad'] = (mailui) => {
-        console.log("onLoad", mailui);
+        // console.log("onLoad", mailui);
 
         mailui.addEventListener("design:updated", (data: {
             type: string
@@ -321,7 +320,7 @@ const BasicExample = () => {
                 minHeight="calc(100vh - 57px)"
                 options={{
                     apiKey: process.env.REACT_APP_API_KEY,
-                    apiSecret: process.env.REACT_APP_API_KEY,
+                    apiSecret: process.env.REACT_APP_API_SECRET,
 
                     defaultDevice: "desktop",
                     devices: ["desktop", "tablet", "mobile"],
