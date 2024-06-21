@@ -61,6 +61,6 @@
     "typescript": "^3.9.10"
   },
   "dependencies": {
-    "mailui-editor-types": "^1.0.11"
+    "mailui-editor-types": "^1.0.12"
   }
 }
