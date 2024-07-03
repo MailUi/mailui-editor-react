@@ -3,6 +3,7 @@ import MailUiEditor, {MailUiEditorProps, MailUiEditorRef} from "../../src";
 import packageJson from "../package.json";
 import sampleTemplate from "./sampleTemplate.json";
 import {FaDesktop, FaMobile, FaRedoAlt, FaTablet, FaUndoAlt} from "react-icons/fa";
+import crypto from "crypto";
 
 const classNames = (...args: (string | undefined | null | false | number)[]): string => {
     return args.filter(arg => typeof arg === 'string').join(' ');
@@ -239,6 +240,10 @@ const BasicExample = () => {
         console.log("onReady", mailui);
     };
 
+    const projectId = process.env.NEXTAUTH_MAILUI_PROJECT_ID || "";
+    const secretKey = process.env.NEXTAUTH_MAILUI_SECRET || "";
+    const signature = crypto.createHmac("sha256", secretKey).update(projectId).digest("hex");
+
     return (
         <main className="App">
             <nav className="App-header">
@@ -319,8 +324,7 @@ const BasicExample = () => {
                 onReady={onReady}
                 minHeight="calc(100vh - 57px)"
                 options={{
-                    apiKey: process.env.REACT_APP_API_KEY,
-                    apiSecret: process.env.REACT_APP_API_SECRET,
+                    signature,
 
                     defaultDevice: "desktop",
                     devices: ["desktop", "tablet", "mobile"],
