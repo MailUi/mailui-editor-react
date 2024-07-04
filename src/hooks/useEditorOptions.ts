@@ -8,6 +8,7 @@ const useEditorOptions = (props: MailUiEditorProps, editorId: string) => {
             ...(props.options || {}),
             apiKey: props.options?.apiKey,
             apiSecret: props.options?.apiSecret,
+            signature: props.options?.signature,
             appearance: props.options?.appearance,
             displayMode: props.options?.displayMode || 'email',
             locale: props.options?.locale,
