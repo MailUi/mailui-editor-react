@@ -9,7 +9,7 @@ describe('it', () => {
 
     // @ts-ignore
     const div = document.createElement('div');
-    ReactDOM.render(<MailUiEditor options={{apiKey: '1234', apiSecret: '1234'}} ref={ref}/>, div);
+    ReactDOM.render(<MailUiEditor options={{signature: '1234'}} ref={ref}/>, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
