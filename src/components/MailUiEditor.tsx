@@ -10,7 +10,7 @@ import useEditorOptions from "../hooks/useEditorOptions";
 import useEditorInitialization from "../hooks/useEditorInitialization";
 import useEventHandlers from "../hooks/useEventHandlers";
 
-window.__mailui_newEditorId = window.__mailui_newEditorId || 0;
+// window.__mailui_newEditorId = window.__mailui_newEditorId || 0;
 
 const MailUiEditor = React.forwardRef<MailUiEditorRef, MailUiEditorProps>(
     (props, ref) => {
