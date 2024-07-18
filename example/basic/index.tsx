@@ -137,6 +137,12 @@ const BasicExample = () => {
         console.log("dfsdf");
     };
 
+    const loadConvertDesign = () => {
+        const mailui = mailUiEditorRef.current?.editor;
+        mailui?.loadDesign(unlayerTemplate);
+        console.log("dfsdf__");
+    };
+
     const loadListener = () => {
         const mailui = mailUiEditorRef.current?.editor;
 
@@ -361,6 +367,9 @@ const BasicExample = () => {
                         </button>
                         <button className="btn btn-sm btn-secondary" onClick={loadTemplate}>
                             Load Template
+                        </button>
+                        <button className="btn btn-sm btn-secondary" onClick={loadConvertDesign}>
+                            Convert Unlayer
                         </button>
                         <button className="btn btn-sm btn-secondary" onClick={loadDesign}>
                             Load Design
