@@ -2,12 +2,31 @@ import React, {useRef, useState} from "react";
 import MailUiEditor, {MailUiEditorProps, MailUiEditorRef} from "../../src";
 import packageJson from "../package.json";
 import sampleTemplate from "./sampleTemplate.json";
+import unlayerTemplate from "./unlayer-template.json";
 import {FaDesktop, FaMobile, FaRedoAlt, FaTablet, FaUndoAlt} from "react-icons/fa";
-import crypto from "crypto";
+import {generateSignature} from "../utils";
 
 const classNames = (...args: (string | undefined | null | false | number)[]): string => {
     return args.filter(arg => typeof arg === 'string').join(' ');
 };
+
+const displayConditions = [
+    {
+        label: "Men",
+        description: "All man customers",
+        key: "ismen",
+    },
+    {
+        label: "Women",
+        description: "All women customers",
+        key: "iswomen",
+    },
+    {
+        label: "Children",
+        description: "All children customers",
+        key: "ischild",
+    }
+]
 
 const BasicExample = () => {
     const mailUiEditorRef = useRef<MailUiEditorRef | null>(null);
@@ -109,6 +128,7 @@ const BasicExample = () => {
     const loadTemplate = () => {
         const mailui = mailUiEditorRef.current?.editor;
         mailui?.loadTemplate(12345);
+
     };
 
     const loadDesign = () => {
@@ -130,20 +150,26 @@ const BasicExample = () => {
     const onLoad: MailUiEditorProps['onLoad'] = (mailui) => {
         // console.log("onLoad", mailui);
 
-        mailui.addEventListener("design:updated", (data: {
-            type: string
-        }) => {
-            const type = data.type; // type will be of type string
-            console.log("__design:updated__", data, type);
+        // mailui.addEventListener("design:updated", (data: {
+        //     type: string
+        // }) => {
+        //     const type = data.type; // type will be of type string
+        //     console.log("__design:updated__", data, type);
+        // });
+
+        mailui.addEventListener("design:updated", function () {
+            mailui.exportJson(function (data) {
+                console.log('JSON', data);
+            });
         });
 
 
         mailui.addEventListener("design:loaded", onDesignLoad);
         // mailui.loadDesign({});
-        mailui.addEventListener("design:updated", function (data: object) {
-            // var type = data.type; // html:updated
-            console.log("__design:updated__", data);
-        });
+        // mailui.addEventListener("design:updated", function (data: object) {
+        //     // var type = data.type; // html:updated
+        //     console.log("__design:updated__", data);
+        // });
         mailui.addEventListener("content:modified", function (data: object) {
             // var type = data.type; // html:updated
             console.log("__content:modified__", data);
@@ -234,15 +260,48 @@ const BasicExample = () => {
             console.log("library:saveAuthAlert", params);
             done(true);
         });
+        mailui.registerCallback("displayCondition", async (params: object, done: Function) => {
+            console.log("displayCondition", params?.condition);
+
+            done({
+                label: "Men",
+                description: "All man customers",
+                key: "ismen",
+            })
+        });
+
+        mailui.registerCallback("previewHtml", async (params: object, done: Function) => {
+            console.log("previewHtml", params);
+
+            var conditionKey = prompt(
+                `Please enter a condition key: ${displayConditions
+                    .map((e) => e.key)
+                    .join(", ")}`,
+                displayConditions[0]?.key
+            );
+
+            if (conditionKey === null || conditionKey === "") {
+                console.log("User cancelled the prompt.");
+            }
+
+            var data = displayConditions.reduce((acc, condition) => {
+                acc[condition.key] =
+                    condition.key === conditionKey ||
+                    condition.key === conditionKey.toLowerCase();
+                return acc;
+            }, {});
+
+            done(data)
+        });
+
+        mailui?.setDisplayConditions(displayConditions)
     };
 
     const onReady: MailUiEditorProps['onReady'] = (mailui) => {
         console.log("onReady", mailui);
     };
 
-    const projectId = process.env.NEXTAUTH_MAILUI_PROJECT_ID || "";
-    const secretKey = process.env.NEXTAUTH_MAILUI_SECRET || "";
-    const signature = crypto.createHmac("sha256", secretKey).update(projectId).digest("hex");
+    const signature = generateSignature();
 
     return (
         <main className="App">
@@ -323,8 +382,14 @@ const BasicExample = () => {
                 onLoad={onLoad}
                 onReady={onReady}
                 minHeight="calc(100vh - 57px)"
+                scriptUrl={
+                    process.env.NODE_ENV === "production"
+                        ? "https://editor.mailui.co/embed.min.js"
+                        : "https://editor.mailui.co/embed.local.min.js"
+                }
                 options={{
                     signature,
+                    projectId: process.env.REACT_APP_MAILUI_PROJECT_ID,
 
                     defaultDevice: "desktop",
                     devices: ["desktop", "tablet", "mobile"],
@@ -349,6 +414,9 @@ const BasicExample = () => {
                         saveToLibrary: {
                             enabled: true,
                             authAlert: true,
+                        },
+                        displayCondition: {
+                            enabled: true,
                         },
                     },
                     excludeTools: [],
@@ -379,6 +447,7 @@ const BasicExample = () => {
                             ],
                         },
                     ],
+                    protectedModules: []
                 }}
             />
         </main>
