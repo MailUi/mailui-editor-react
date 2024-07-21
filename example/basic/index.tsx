@@ -291,9 +291,9 @@ const BasicExample = () => {
             }
 
             var data = displayConditions.reduce((acc, condition) => {
-                acc[condition.key] =
-                    condition.key === conditionKey ||
-                    condition.key === conditionKey.toLowerCase();
+                acc[condition.key] = conditionKey &&
+                    (condition.key === conditionKey ||
+                    condition.key === conditionKey.toLowerCase())
                 return acc;
             }, {});
 
@@ -301,6 +301,25 @@ const BasicExample = () => {
         });
 
         mailui?.setDisplayConditions(displayConditions)
+
+        // mailui?.registerCustomTool({
+        //     initialProperties: {},
+        //     settings: {
+        //         label: "Custom Tool",
+        //         icon: <div>I</div>,
+        //     },
+        //     dragPreview: null,
+        //     toolbarComponent: () => {
+        //         return <div><h1>Hello how are you</h1></div>
+        //     },
+        //     elementComponent: () => {
+        //         return <div><h1>Hello how are you</h1></div>
+        //     },
+        //     previewElementComponent: () => {
+        //         return <div><h1>Hello how are you</h1></div>
+        //     },
+        //     styleHelpers: null
+        // })
     };
 
     const onReady: MailUiEditorProps['onReady'] = (mailui) => {
@@ -456,7 +475,8 @@ const BasicExample = () => {
                             ],
                         },
                     ],
-                    protectedModules: []
+                    protectedModules: [],
+                    customTools: []
                 }}
             />
         </main>
