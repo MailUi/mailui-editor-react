@@ -4,8 +4,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -61,6 +60,6 @@
     "typescript": "^3.9.10"
   },
   "dependencies": {
-    "mailui-editor-types": "^1.0.27"
+    "mailui-editor-types": "^1.0.28"
   }
 }
