@@ -25,6 +25,12 @@ const displayConditions = [
         label: "Children",
         description: "All children customers",
         key: "ischild",
+    },
+    {
+        label: "Custom",
+        description: "All custom customers",
+        before: "{{#custom}}",
+        after: "{{/custom}}",
     }
 ]
 
@@ -266,15 +272,15 @@ const BasicExample = () => {
             console.log("library:saveAuthAlert", params);
             done(true);
         });
-        mailui.registerCallback("displayCondition", async (params: object, done: Function) => {
-            console.log("displayCondition", params?.condition);
-
-            done({
-                label: "Men",
-                description: "All man customers",
-                key: "ismen",
-            })
-        });
+        // mailui.registerCallback("displayCondition", async (params: object, done: Function) => {
+        //     console.log("displayCondition", params?.condition);
+        //
+        //     done({
+        //         label: "Men",
+        //         description: "All man customers",
+        //         key: "ismen",
+        //     })
+        // });
 
         mailui.registerCallback("previewHtml", async (params: object, done: Function) => {
             console.log("previewHtml", params);
@@ -476,7 +482,10 @@ const BasicExample = () => {
                         },
                     ],
                     protectedModules: [],
-                    customTools: []
+                    customTools: [],
+                    customJS: [
+                        'http://localhost:3000/custom.js'
+                    ]
                 }}
             />
         </main>
