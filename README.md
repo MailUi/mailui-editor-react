@@ -4,18 +4,18 @@ Enhance your app with [MailUi](https://mailui.co) user-friendly [React.js](https
 designing emails. Enjoy
 it's easy drag-and-drop editor, making email creation a breeze!
 
-[![React MailUi Editor](https://cdn.mailui.co/photos/mailui-editor-preview.png)](http://react-mailui-editor.vercel.com)
+[![React MailUi Editor](https://camo.envatousercontent.com/c5a07583e98a3019bcdc7b0d5a7c4d0ef8b36e98/68747470733a2f2f63616d6f2e67697468756275736572636f6e74656e742e636f6d2f373737356430323236313637303232613134353334313565316336326165636131316532383530373366663135366563646331616135313662386534656136382f363837343734373037333361326632663664363136393663373536393265363336663266363936643631363736353733326636643631363936633735363932653661373036353637)](https://mailui.co/)
 
 ## Table of contents
 
 - [Live Demo](#live-demo)
 - [Getting started](#getting-started)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Methods](#methods)
-    - [Properties](#properties)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Methods](#methods)
+  - [Properties](#properties)
 - [Browser support](#browser-support)
-    - [React](#react)
+  - [React](#react)
 - [Localization](#localization)
 - [License](#license)
 
@@ -40,6 +40,25 @@ OR
 
 ```
 yarn add react-mailui-editor
+```
+
+### React installation
+
+```
+npm i mailui-editor-react@latest
+```
+
+```
+import MailUiEditor from "mailui-editor-react";
+
+<MailUiEditor
+    onReady={(mailui) => mailui.loadDesign({})}
+        options={{
+        projectId: ‘‘,
+        signature: ““
+    }}
+/>
+
 ```
 
 ### Usage
@@ -96,7 +115,7 @@ the [MailUi Docs](https://docs.mailui.co/) for more information, or log the obje
 are the most used ones:
 
 | method         | params              | description                                             |
-|----------------|---------------------|---------------------------------------------------------|
+| -------------- | ------------------- | ------------------------------------------------------- |
 | **loadDesign** | `Object data`       | Takes the design JSON and loads it in the editor        |
 | **saveDesign** | `Function callback` | Returns the design JSON in a callback function          |
 | **exportHtml** | `Function callback` | Returns the design HTML and JSON in a callback function |
@@ -108,8 +127,8 @@ are the most used ones:
 - `onLoad` {`Function`} called when the editor instance is created
 - `onReady` {`Function`} called when the editor has finished loading
 - `options` {`Object`} options passed to the MailUi editor instance (default {})
-    - See the [MailUi Docs](https://docs.mailui.co/docs/getting-started#configuration-options) for all available
-      options.
+  - See the [MailUi Docs](https://docs.mailui.co/docs/getting-started#configuration-options) for all available
+    options.
 - `style` {`Object`} style object for the editor container (default {})
 
 ## Browser support
@@ -125,9 +144,8 @@ The following browsers are supported out of the box in MailUi v0.0.1.beta:
 - Firefox ≥44
 - Opera ≥27
 
-[//]: # (- IE &#40;not supported&#41;)
-
-[//]: # (If you need to support older browsers, you will need to use React-PDF v6 or v5.)
+[//]: # '- IE (not supported)'
+[//]: # 'If you need to support older browsers, you will need to use React-PDF v6 or v5.'
 
 Please be aware that the MailUi editor is currently not compatible with `Internet Explorer`, and there are no plans to
 add support for it in the future.
@@ -139,12 +157,11 @@ To use the latest version of MailUi editor, your project needs to use React 15.5
 If you use an older version of React, please refer to the table below to a find suitable MailUi version.
 
 | React version | Newest compatible MailUi version |
-|---------------|----------------------------------|
+| ------------- | -------------------------------- |
 | ≥15.5         | latest                           |
 
-[//]: # (| ≥16.8         | latest                              |)
-
-[//]: # (| ≥16.3         | 5.x                                 |)
+[//]: # '| ≥16.8         | latest                              |'
+[//]: # '| ≥16.3         | 5.x                                 |'
 
 ## Localization
 
