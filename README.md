@@ -48,7 +48,7 @@ yarn add react-mailui-editor
 npm i mailui-editor-react@latest
 ```
 
-```
+```javascript
 import MailUiEditor from "mailui-editor-react";
 
 <MailUiEditor
