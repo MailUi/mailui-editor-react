@@ -25,12 +25,6 @@ const displayConditions = [
         label: "Children",
         description: "All children customers",
         key: "ischild",
-    },
-    {
-        label: "Custom",
-        description: "All custom customers",
-        before: "{{#custom}}",
-        after: "{{/custom}}",
     }
 ]
 
@@ -57,7 +51,7 @@ const BasicExample = () => {
             // const { design, html } = data;
             console.log("exportHtml", data);
             console.log("Output HTML has been logged in your developer console.");
-        });
+        }, {minify: true});
     };
 
     const togglePreview = () => {
@@ -90,45 +84,33 @@ const BasicExample = () => {
 
     const setMergeTags = () => {
         const mailui = mailUiEditorRef.current?.editor;
-        mailui?.setMergeTags([
-            {
+        mailui?.setMergeTags({
+            first_name: {
                 label: "First name",
                 value: "{{ first_name }}",
             },
-            {
+            last_name: {
                 label: "Last name",
                 value: "{{ last_name }}",
             },
-            {
+            shopping: {
                 label: "Shipping address-",
-                margeTags: [
-                    {
+                margeTags: {
+                    'shipping_address.city': {
                         label: "City 1",
                         value: "{{ shipping_address.city }}",
                     },
-                    {
+                    'shipping_address.state': {
                         label: "State 1",
                         value: "{{ shipping_address.state }}",
                     },
-                    {
+                    'shipping_address.country': {
                         label: "Country 1",
                         value: "{{ shipping_address.country }}",
                     },
-                    {
-                        label: "City 2",
-                        value: "{{ shipping_address.city }}",
-                    },
-                    {
-                        label: "State 2",
-                        value: "{{ shipping_address.state }}",
-                    },
-                    {
-                        label: "Country 2",
-                        value: "{{ shipping_address.country }}",
-                    },
-                ],
+                }
             },
-        ]);
+        });
     };
 
     const loadTemplate = () => {
@@ -146,7 +128,7 @@ const BasicExample = () => {
     const loadConvertDesign = () => {
         const mailui = mailUiEditorRef.current?.editor;
         mailui?.loadDesign(unlayerTemplate);
-        console.log("dfsdf__");
+        console.log("Convert Design");
     };
 
     const loadListener = () => {
@@ -200,11 +182,16 @@ const BasicExample = () => {
             console.log("image:onUpload", params);
 
             setTimeout(() => {
-                done("https://api.slingacademy.com/public/sample-photos/9.jpeg");
+                done({
+                    id: 111,
+                    src: "https://api.slingacademy.com/public/sample-photos/9.jpeg",
+                    fileName: '',
+                    alt: ''
+                });
             }, 3000);
         });
 
-        mailui.registerCallback("image:removed", function (image: object, done: Function) {
+        mailui.registerCallback("image:onRemove", function (image: object, done: Function) {
             // image will include id, userId and projectId
             console.log(image);
 
@@ -234,9 +221,9 @@ const BasicExample = () => {
         });
 
         /**
-         * Library
+         * Block
          */
-        mailui.registerProvider("library:collections", async (params: {}, done: Function) => {
+        mailui.registerProvider("block:collections", async (params: {}, done: Function) => {
             console.log("params", params);
 
             /**
@@ -245,7 +232,7 @@ const BasicExample = () => {
             const collections: any[] = []
             done(collections);
         });
-        mailui.registerProvider("library:collectionData", async (params: {}, done: Function) => {
+        mailui.registerProvider("block:collectionData", async (params: {}, done: Function) => {
             console.log("params", params);
 
             /**
@@ -256,20 +243,20 @@ const BasicExample = () => {
                 done(collectionData);
             }, 4000)
         });
-        mailui.registerProvider("library:saved", async (params: object, done: Function) => {
-            console.log("library:onSave", params);
+        mailui.registerProvider("block:saved", async (params: object, done: Function) => {
+            console.log("block:onSave", params);
             setTimeout(() => {
-                done({name: 'saved library', id: 111});
+                done({name: 'saved block', id: 111});
             }, 3000);
         });
-        mailui.registerCallback("library:removed", async (params: object, done: Function) => {
-            console.log("library:onSave", params);
+        mailui.registerCallback("block:removed", async (params: object, done: Function) => {
+            console.log("block:onSave", params);
             setTimeout(() => {
                 done();
             }, 3000);
         });
-        mailui.registerCallback("library:saveAuthAlert", async (params: object, done: Function) => {
-            console.log("library:saveAuthAlert", params);
+        mailui.registerCallback("block:saveAuthAlert", async (params: object, done: Function) => {
+            console.log("block:saveAuthAlert", params);
             done(true);
         });
         // mailui.registerCallback("displayCondition", async (params: object, done: Function) => {
@@ -303,7 +290,9 @@ const BasicExample = () => {
                 return acc;
             }, {});
 
-            done(data)
+            done({
+                dataMap: data
+            })
         });
 
         mailui?.setDisplayConditions(displayConditions)
@@ -441,11 +430,11 @@ const BasicExample = () => {
                             safeSearch: true,
                             // defaultSearchTerm: "people",
                         },
-                        stockLibrary: {
+                        stockBlocks: {
                             enabled: true,
                             safeFilter: true,
                         },
-                        saveToLibrary: {
+                        saveToBlock: {
                             enabled: true,
                             authAlert: true,
                         },
