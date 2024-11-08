@@ -23,7 +23,7 @@ it's easy drag-and-drop editor, making email creation a breeze!
 
 A minimal demo page can be found in `example` directory.
 
-- Live demo link: http://react-mailui-editor.vercel.com
+- Live demo link: https://app.mailui.co/create/blank
 - Source Code: https://github.com/MailUi/react-mailui-editor/tree/master/example
 
 ## Getting started
