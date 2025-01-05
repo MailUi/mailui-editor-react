@@ -471,7 +471,6 @@ const BasicExample = () => {
                         },
                     ],
                     protectedModules: [],
-                    customTools: [],
                     customJS: [
                         'http://localhost:3000/custom.js'
                     ]
