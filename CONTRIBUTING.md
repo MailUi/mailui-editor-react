@@ -5,11 +5,11 @@
 ## Installation
 
 - Running `npm install` in the components's root directory will install everything you need for development.
-- Running `npm install` in the `demo` directory will install everything you need to run a demo app locally.
+- Running `npm install` in the `example` directory will install everything you need to run a example app locally.
 
-## Demo Development Server
+## Example Development Server
 
-- `npm start` from `demo` directory will run the component's demo app at [http://localhost:3000](http://localhost:3000)
+- `npm start` from `example` directory will run the component's example app at [http://localhost:3000](http://localhost:3000)
   with hot module reloading.
 
 ## Running Tests
@@ -23,4 +23,4 @@
 ## Building
 
 - `npm run build` will build the component for publishing to npm.
-- `npm run build` in the `demo` directory will build the demo app.
+- `npm run build` in the `example` directory will build the example app.
