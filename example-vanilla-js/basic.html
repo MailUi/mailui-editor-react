@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      #mailui-editor {
+        width: 100%;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mailui-editor"></div>
+
+    <script src="https://editor.mailui.co/embed.min.js"></script>
+    <script>
+      var editor = mailui.init({
+        id: 'mailui-editor',
+        projectId: 'YOUR_PROJECT_ID',
+        signature: 'YOUR_SIGNATURE',
+      });
+
+      (async () => {
+        try {
+          const res = await fetch('../example/basic/sampleTemplate.json');
+          const design = await res.json();
+
+          // await editor.loadDesign(design);
+          await editor.loadDesign({});
+          console.log('Design loaded successfully.');
+
+          editor.exportHtml(
+            (data) => {
+              console.log('HTML exported:', data);
+            },
+            {
+              amp: false,
+              minify: false,
+            }
+          );
+
+          editor.exportPlainText(
+            (data) => {
+              console.log('Plain text exported:', data);
+            },
+            {
+              amp: false,
+              minify: false,
+            }
+          );
+
+          editor.addEventListener('design:updated', (design) => {
+            console.log('Design updated:', design);
+          });
+        } catch (err) {
+          console.error('Error loading or exporting design:', err);
+        }
+      })();
+    </script>
+  </body>
+</html>
